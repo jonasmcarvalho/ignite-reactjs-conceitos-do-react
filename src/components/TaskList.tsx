@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { v4 as uuidv4 } from 'uuid'
 
 import '../styles/tasklist.scss'
 
@@ -13,25 +14,27 @@ interface Task {
 export function TaskList() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [newTaskTitle, setNewTaskTitle] = useState('');
+  const [newId, setNewId] = useState(0);
 
   function handleCreateNewTask() {
     // Crie uma nova task com um id random, não permita criar caso o título seja vazio.
 
-
-    // useEffect(() => {
-
     if (newTaskTitle) {
-      const objData = {
-        id: 1234,
+      let objData = {
+        id: newId,
         title: newTaskTitle,
         isComplete: false
       }
 
-      setTasks([objData])
+      let objJson = objData
 
+      setTasks([objJson, ...tasks])
+      setNewId(newId + 1)
+
+      console.log(newId)
+      console.log(tasks)
+      console.log(newTaskTitle)
     }
-    //})
-
   }
 
   function handleToggleTaskCompletion(id: number) {
