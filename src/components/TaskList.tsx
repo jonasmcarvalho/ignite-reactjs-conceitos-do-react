@@ -28,12 +28,8 @@ export function TaskList() {
 
       let objJson = objData
 
-      setTasks([objJson, ...tasks])
+      setTasks([...tasks, objJson])
       setNewId(newId + 1)
-
-      console.log(newId)
-      console.log(tasks)
-      console.log(newTaskTitle)
     }
   }
 
@@ -46,30 +42,22 @@ export function TaskList() {
       if (id === task.id) {
         if (task.isComplete === false) {
           task.isComplete = true
-          console.log('true')
         } else {
           task.isComplete = false
-          console.log('false')
         }
 
         setTasks([...tasks])
-        console.log(tasks)
       }
     }
 
   }
 
   function handleRemoveTask(id: number) {
-    let newArrList: Task[] = []
 
-    for (let index in tasks) {
-      let task = tasks[index]
-      if (id === task.id) {
-        let startIndex = Number(index)
-        newArrList = tasks.splice(startIndex, 1)
-      }
-    }
-    setTasks([...newArrList])
+    const indexObj = tasks.findIndex(indexObj => indexObj.id === id)
+    tasks.splice(indexObj, 1)
+
+    setTasks([...tasks])
   }
 
   return (
